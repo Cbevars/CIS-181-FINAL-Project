@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedules - Fitness Club</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="membership.html">Membership</a>
+            <a href="classes.html">Classes</a>
+            <a href="tour.html">Tour</a>
+            <a href="community.html">Community</a>
+        </nav>
+        <h1>Find Your Workout</h1>
+        <p>Class Schedules & Programs</p>
+    </header>
+
+    <section class="events-challenges">
+        <h2>This Week's Schedule</h2>
+    <div class="weekly-calendar rotating-schedule" id="weekly-schedule">
+    </div>
+    </section>
+
+    <section class="class-offerings">
+    <h2>All Classes We Offer</h2>
+    <div class="class-grid">
+        <div class="class-card">
+            <h3>🧘 Yoga</h3>
+            <p>Improve flexibility and focus through guided breath and flow.</p>
+        </div>
+        <div class="class-card">
+            <h3>🚴 Spin</h3>
+            <p>High-intensity cardio set to energetic music on stationary bikes.</p>
+        </div>
+        <div class="class-card">
+            <h3>🔥 HIIT</h3>
+            <p>Short bursts of intense movement followed by rest for max results.</p>
+        </div>
+        <div class="class-card">
+            <h3>💃 Zumba</h3>
+            <p>A fun dance workout mixing cardio with Latin rhythms.</p>
+        </div>
+        <div class="class-card">
+            <h3>🧘‍♀️ Pilates</h3>
+            <p>Core strength and toning through controlled movements.</p>
+        </div>
+        <div class="class-card">
+            <h3>🥊 Kickboxing</h3>
+            <p>Strike, sweat, and sculpt your way to full-body fitness.</p>
+        </div>
+        <div class="class-card">
+            <h3>🏋️ Bootcamp</h3>
+            <p>Military-style circuits that push your endurance and strength.</p>
+        </div>
+        <div class="class-card">
+            <h3>💪 Strength Training</h3>
+            <p>Build muscle and stamina using weights and resistance moves.</p>
+        </div>
+        <div class="class-card">
+            <h3>🩰 Barre</h3>
+            <p>Ballet-inspired conditioning for posture and toning.</p>
+        </div>
+        <div class="class-card">
+            <h3>🧘‍♂️ Meditation</h3>
+            <p>Quiet the mind and reconnect through guided sessions.</p>
+        </div>
+        <div class="class-card">
+            <h3>🧎 Recovery Stretch</h3>
+            <p>Cool down and improve mobility with focused stretching.</p>
+        </div>
+    </div>
+    </section>
+
+
+    <section class="training-programs">
+    <h2>Training Programs</h2>
+    <div class="training-programs">
+    <div class="box-container">
+        <div class="box beginner">
+            <div class="box-content">
+                <h3>Beginner</h3>
+                <p>Learn the basics of fitness and build a solid foundation.</p>
+            </div>
+        </div>
+        <div class="box intermediate">
+            <div class="box-content">
+                <h3>Intermediate</h3>
+                <p>Challenge yourself with more complex routines and exercises.</p>
+            </div>
+        </div>
+        <div class="box advanced">
+            <div class="box-content">
+                <h3>Advanced</h3>
+                <p>Pushing your limits with high-intensity training.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </section>
+    
+    <script>
+    const allClasses = [
+        "Yoga",
+        "Spin",
+        "HIIT",
+        "Zumba",
+        "Pilates",
+        "Kickboxing",
+        "Bootcamp",
+        "Strength Training",
+        "Barre",
+        "Meditation",
+        "Recovery Stretch"
+    ];
+
+    const timeSlots = ["7:00 AM", "9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM", "7:00 PM"];
+    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+    // Generate class list for each day
+    const weeklySchedule = {};
+    weekdays.forEach(day => {
+        weeklySchedule[day] = timeSlots.map(time => {
+            const randomClass = allClasses[Math.floor(Math.random() * allClasses.length)];
+            return `${time} – ${randomClass}`;
+        });
+    });
+
+    // Render the weekly schedule
+    const scheduleContainer = document.getElementById("weekly-schedule");
+
+    weekdays.forEach(day => {
+        const dayDiv = document.createElement("div");
+        dayDiv.classList.add("calendar-day");
+
+        const heading = document.createElement("h3");
+        heading.textContent = day;
+        dayDiv.appendChild(heading);
+
+        const ul = document.createElement("ul");
+        weeklySchedule[day].forEach(cls => {
+            const li = document.createElement("li");
+            li.textContent = cls;
+            ul.appendChild(li);
+        });
+
+        dayDiv.appendChild(ul);
+        scheduleContainer.appendChild(dayDiv);
+    });
+    </script>
+    
+    <script>
+    const rotatingContainer = document.getElementById("weekly-schedule");
+    const rotationInterval = 3000; // 3 seconds per rotation
+    let currentSlot = 0;
+
+    // Clear old schedule if needed
+    rotatingContainer.innerHTML = "";
+
+    // Store day elements for quick updating
+    const dayElements = {};
+
+    weekdays.forEach(day => {
+        const dayDiv = document.createElement("div");
+        dayDiv.classList.add("calendar-day");
+
+        const heading = document.createElement("h3");
+        heading.textContent = day;
+        dayDiv.appendChild(heading);
+
+        const classDisplay = document.createElement("p");
+        classDisplay.classList.add("rotating-class");
+        dayDiv.appendChild(classDisplay);
+
+        rotatingContainer.appendChild(dayDiv);
+        dayElements[day] = classDisplay;
+    });
+
+    // Rotates displayed time slot
+    function updateTimeSlots() {
+        weekdays.forEach(day => {
+            const slotText = weeklySchedule[day][currentSlot];
+            dayElements[day].textContent = slotText;
+        });
+        currentSlot = (currentSlot + 1) % timeSlots.length;
+    }
+
+    // Start rotating schedule
+    updateTimeSlots();
+    setInterval(updateTimeSlots, rotationInterval);
+    </script>
+
+</body>
+</html>

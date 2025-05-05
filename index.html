@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Live Fit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="membership.html">Membership</a>
+            <a href="classes.html">Classes</a>
+            <a href="tour.html">Tour</a>
+            <a href="community.html">Community</a>
+        </nav>
+        <h1>Welcome to Live Fit Health & Wellness Club</h1>
+        <p>Your journey to a healthier you starts here!</p>
+    </header>
+
+    <section class="community-section">
+        <div class="image-column">
+            <img src="landing_page.jpeg" alt="Fitness Club Facility" class="facility-img" id="slideshow-img">
+        </div>
+        <div class="text-column">
+            <h2>Discover Our Community</h2>
+            <p>At Live Fit, we’re dedicated to helping you achieve your fitness goals with top-notch facilities, expert-led classes, and a supportive community.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Join Us Today</h2>
+        <p>Ready to take the next step? Explore our membership options and start your fitness journey!</p>
+        <button onclick="window.location.href='membership.html'">Explore Memberships</button>
+    </section>
+
+    <script>
+        const images = [
+            'landing_page.jpeg',
+            'gym2.jpeg.png',
+            'facilities.jpeg.webp',
+            'silver.jpeg',
+            'gym3.jpg',
+            'gym4.jpg',
+            'gym5.jpg',
+            'gym6.jpg',
+            'gym8.jpg',
+            'gym9.jpg',
+            'gym10.jpg'
+        ];
+        let currentIndex = 0;
+        const imgElement = document.getElementById('slideshow-img');
+
+        // Function to change the image
+        function changeImage() {
+            currentIndex = (currentIndex + 1) % images.length; // Cycle through images
+            imgElement.src = images[currentIndex];
+        }
+
+        // Start the slideshow immediately and repeat every 1 second
+        setInterval(changeImage, 3000);
+    </script>
+</body>
+</html>
